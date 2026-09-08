@@ -24,9 +24,7 @@ services:
       - key: QUEUE_CONNECTION
         value: sync
       - key: DB_CONNECTION
-        fromDatabase:
-          name: setk-db
-          property: connection
+        value: pgsql
       - key: DB_HOST
         fromDatabase:
           name: setk-db
