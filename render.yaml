@@ -1,0 +1,57 @@
+services:
+  - type: web
+    name: service-charge-tracker
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /login
+    envVars:
+      - key: APP_NAME
+        value: SetK SC Tracker
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_URL
+        sync: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: DB_CONNECTION
+        fromDatabase:
+          name: setk-db
+          property: connection
+      - key: DB_HOST
+        fromDatabase:
+          name: setk-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: setk-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: setk-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: setk-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: setk-db
+          property: password
+      - key: APP_KEY
+        sync: false
+
+databases:
+  - name: setk-db
+    plan: free
+    databaseName: setk
+    user: setk
