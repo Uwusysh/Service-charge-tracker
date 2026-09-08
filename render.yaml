@@ -5,7 +5,7 @@ services:
     plan: free
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    healthCheckPath: /login
+    healthCheckPath: /up
     envVars:
       - key: APP_NAME
         value: SetK SC Tracker
@@ -25,6 +25,16 @@ services:
         value: sync
       - key: DB_CONNECTION
         value: pgsql
+      - key: DB_SSLMODE
+        value: require
+      - key: DATABASE_URL
+        fromDatabase:
+          name: setk-db
+          property: connectionString
+      - key: DB_URL
+        fromDatabase:
+          name: setk-db
+          property: connectionString
       - key: DB_HOST
         fromDatabase:
           name: setk-db
