@@ -22,6 +22,12 @@ class SamplePortfolioSeeder extends Seeder
 {
     public function run(): void
     {
+        if (Client::query()->where('name', 'Maple Court RMC Ltd')->exists()) {
+            $this->command?->info('Sample portfolio already present — skipping.');
+
+            return;
+        }
+
         $headings = CostHeading::query()->get()->keyBy('code');
         $apportionment = app(ApportionmentService::class);
         $calc = app(BudgetCalculationService::class);
